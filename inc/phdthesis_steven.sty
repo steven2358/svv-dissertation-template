@@ -1,0 +1,261 @@
+% LaTeX Thesis Dissertation Template by Steven Van Vaerenbergh, https://github.com/steven2358/svv-dissertation-template
+%
+% Thanks to Stefaan Lippens for most of the styles in this file.
+
+% Use the geometry package to define the page size, text size and margins
+\usepackage{geometry}
+%\geometry{
+%    includefoot=false, includehead=true, includemp=false,
+%    paperwidth=16cm, paperheight=24cm,
+%    totalwidth=12cm, totalheight=20cm,
+%    headsep=.5cm,
+%    inner=2cm, bottom=2cm,
+%}
+
+\hoffset=-0.04cm % pages start at 2.5cm of left margin now
+    \oddsidemargin  0.8cm
+    \evensidemargin -0.2cm
+    \textwidth      15.5cm       % 15.5cm
+    \headsep        1.0cm
+    \headheight     0.6cm
+    \topmargin      0.0cm
+    \textheight=9.0in
+
+
+
+% fancyheadings
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\lhead[\fancyplain{}{\bfseries\sffamily\thepage}]%
+    {\fancyplain{}{\bfseries\sffamily\rightmark}}
+\rhead[\fancyplain{}{\bfseries\sffamily\leftmark}]%
+    {\fancyplain{}{\bfseries\sffamily\thepage}}
+\cfoot{}
+
+
+\usepackage{mathpple}       % Math Palatino
+%\usepackage{mathpazo}       % Newer version of Palatino: Math is now "better designed".
+\usepackage{charter}        % Text Charter
+
+
+% Set all section headings in Palatino
+\usepackage{sectsty}
+\allsectionsfont{\fontfamily{ppl}\selectfont}
+
+
+%%% enable inline Bibtex entries (for publication list in body text)
+\usepackage{bibentry}
+%No bibliography is written at this point
+\nobibliography*
+
+%\usepackage{inlinebib}
+
+%%\bibliographystyle{these}
+%\bibliographystyle{cell}
+%\bibliographystyle{apalike}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter title layout
+%\usepackage{eso-pic}
+%\RequirePackage{graphicx}
+\usepackage{color}
+\definecolor{chaptergrey}{rgb}{0.5,0.5,0.5}
+
+% Define an if@appendix flag, to be used in \chapter
+% to switch formatting between chapter/appendix title.
+%
+% When \appendix is called, the flag is set to TRUE.
+%
+\newif\if@appendix
+\@appendixfalse%  initially set to FALSE
+%
+% Define "list of appendices" file extension (.loa)
+\newcommand\ext@appendix{loa}
+
+
+% Copied from book.cls:
+%   \appendix  - to indicate the start of appendix section
+%
+%\renewcommand{\appendix}{%
+%  \@appendixtrue
+%%  \pagebreak%  force a page break, so that TOC will show a correct page number
+%  \setcounter{chapter}{0}%
+%  \setcounter{section}{0}%
+%  \gdef\@chapapp{\appendixname}%
+%  \gdef\thechapter{\@Alph\c@chapter}
+%  %  add to TOC
+%  \phantomsection
+%  \addtocontents{toc}{\protect\addvspace{\@twolinespacing}}
+%  \addcontentsline{toc}{nonmainmatterchapter}{\appendicesname}
+%}
+
+\renewcommand{\appendix}{
+\par
+\@appendixtrue
+  \setcounter{chapter}{0}%
+  \setcounter{section}{0}%
+  \gdef\@chapapp{\appendixname}%
+  \gdef\thechapter{\@Alph\c@chapter}}
+
+
+
+\renewcommand{\@makechapterhead}[1]{%
+    % Vertical space from top.
+    % Using vspace* instead of vspace to make space non removable,
+    % so subsequent vertical spacing wont be messed up
+    % (Tex generally ignores leading and trailing vertical spacing).
+    % (The \hbox{} is added to minimize a problem with the header of the index.)
+%   \hbox{}\vspace*{4cm}%
+%    % Add a shipout picture to the chapter page.
+%    \AddToShipoutPicture*{%
+%        \AtPageLowerLeft{%
+%            \put(\LenToUnit{-.5cm},\LenToUnit{-.5cm}){%
+%                %\includegraphics[width=17cm, height=25cm]{../style/chapter-background}%
+%            }%
+%        }%
+%    }%
+    % Put the chapter number.
+    {%
+        \raggedleft%
+        \color{chaptergrey}%
+        % Make sure the vertical space for the chapter number is used,
+        % even if there is no chapter number by consuming the paragraph
+        % with an zero space.
+        \hspace*{0pt}%
+        % Put the chapter number if required.
+        \ifnum \c@secnumdepth >\m@ne%
+            \if@mainmatter%
+                \if@appendix%
+                \Large \bfseries \sffamily \appendixname \nobreakspace
+                \else
+                \Large \bfseries \sffamily \chaptername %\nobreakspace
+                \fi
+                % Font selection for chapter number
+                % charter: bch, palatino: ppl, avantgarde: pag, bookman: pbk
+                % courier: pcr, helvetica: phv, newcentury: pnc, times: ptm
+                % utopia: put
+                \usefont{T1}{pbk}{b}{n}\fontsize{100}{100}\selectfont%
+                % "Chapter"
+                %\rotatebox{90}{\usefont{T1}{pnc}{b}{n}\fontsize{12}{12}\selectfont chapter}%
+                % Chapter number
+                \thechapter%
+            \fi%
+          \fi%
+        % End paragraph for chapter number
+        \par%
+    }%
+    % Put the chapter title.
+    {%
+        \raggedleft%
+        \advance\leftskip 1cm%
+        \Huge \bfseries \sffamily #1\par%
+    }
+    % Add some vertical space before the content.
+    \vspace*{2.5cm}%
+%     \vfill{}
+}
+
+% fancy up the part pages
+\renewcommand{\@part}[2][2]{%
+    %\cleardoublepage\pagestyle{empty}
+    \font\veryhuge=pbkd8r at 100pt
+    \definecolor{gray}{rgb}{.5, .5, .5}
+    \ifnum \c@secnumdepth >-2\relax
+    \definecolor{white}{rgb}{1, 1, 1}
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    \markboth{}{}%
+    {\centering
+     \interlinepenalty \@M
+     \normalfont
+     \ifnum \c@secnumdepth >-2\relax
+%       \huge\bfseries \partname\nobreakspace%\thepart
+%       \par
+%       \vskip 10\p@
+     %  \rotatebox{90}{\usefont{T1}{pnc}{b}{n}\fontsize{20}{20}\selectfont part}%
+
+       \Huge \bfseries \sffamily \textcolor{gray} \partname \nobreakspace
+       \veryhuge \textcolor{gray} \thepart
+%       \nobreakspace \Huge \bfseries \sffamily \textcolor{white} \partname
+       \hspace{2cm}
+
+       \par
+       \vskip 20\p@
+     \fi
+     \Huge \bfseries \sffamily #2\par}%
+    \@endpart}
+
+%\renewcommand\@pnumwidth{1.75em}  % Better right alignment in the TOC (>100 pages).
+
+%\usepackage{pstricks}
+%\usepackage{pst-grad}
+%\usepackage{pst-node}
+%
+%% Very Fancy Headings ;-)
+%% By TDM
+%
+%\pagestyle{fancy} \setlength{\headheight}{23.03pt}
+%\renewcommand{\chaptermark}[1]{\markboth{\sf\thechapter.\ #1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\sf\thesection.\ #1}{}}
+%\ifx\pdfoutput\undefined
+%    \newcommand{\whitebox}[1]{\psframebox[linewidth=.3pt]{#1}}
+%    \newcommand{\blackbox}[1]{\psframebox[fillstyle=solid, fillcolor=black, linewidth=.3pt]{{\textcolor{white}{#1}}}}
+%\else
+%    \newcommand{\whitebox}[1]{\fbox{#1}}
+%    \newcommand{\blackbox}[1]{\fbox{#1}}
+%\fi \fancyhf{} \fancyhead[el]{\Rnode{Pl}{\blackbox{\sf\thepage\rule[-0.55ex]{0pt}{2.25ex}}}}
+%\fancyhead[or]{\psset{linewidth=.3pt}\Rnode{Pr}{\blackbox{\sf\thepage\rule[-0.55ex]{0pt}{2.25ex}}}%
+%    \ncline{Tr}{Pr}}
+%
+%% The chapter on the even (=left) pages; the section on the odd (=right) pages.
+%\fancyhead[ec]{\fancyplain{}{\psset{linewidth=.3pt}\Rnode{Tl}{\whitebox{\ %
+%    \nouppercase{\sf\leftmark}\ \rule[-0.6ex]{0pt}{2.5ex}}}}\ncline{Pl}{Tl}}
+%\fancyhead[oc]{\fancyplain{}{\Rnode{Tr}{\whitebox{\rule[-0.6ex]{0pt}{2.5ex}\ \nouppercase{\sf\rightmark}\ }}}}
+%\renewcommand{\headrulewidth}{0pt}      % Get rid of the line.
+%
+%\fancypagestyle{plain}{%            % This is for the chapter pages.
+%    \fancyhf{}              % No headers or footers ...
+%    \renewcommand{\headrulewidth}{0pt}  % ... and get rid of the line.
+%}
+
+
+
+%%% layout definition of chapter*{}
+\renewcommand{\@makeschapterhead}[1]{{\let\c@secnumdepth\m@ne\@makechapterhead{#1}}}
+
+
+%
+%
+%%%% Caption font settings.
+%\usepackage[font={small,sf}, labelfont=bf]{caption}
+%
+%%% Subfigure caption font settings.
+%% Normally this should be done with \usepackage[sf,SF]{subfigure},
+%% but as we are using LyX (which loads the subfigure package itself)
+%% we can't control the subfigure options, so we have to use this hack.
+\makeatletter % allows different use of @ symbol
+\@ifpackageloaded{subfigure}{%
+    \renewcommand*{\subcaplabelfont@f}{\sffamily}%
+    \renewcommand*{\subcapfont@f}{\sffamily}%
+}{}
+\makeatother
+
+
+
+\newenvironment{quotepage}{
+\thispagestyle{empty}
+  \vspace*{\stretch{1}}
+%  \begin{verse}
+  \begin{flushright}}
+{\end{flushright}
+%\end{verse}
+\vspace*{\stretch{3}} }
+
+

@@ -1,0 +1,113 @@
+% LaTeX Thesis Dissertation Template by Steven Van Vaerenbergh, https://github.com/steven2358/svv-dissertation-template
+%
+% Thanks to Stefaan Lippens for most of the styles in this file.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% preamble stuff that should go in per chapter
+%% files and the master file
+%% typically operator, command definitions etc...
+
+% Switch for printer specific stuff (crop marks, extra empty pages, ...)
+% Define boolean versionforprint
+\newif \ifversionforprint
+% and give it a value
+% \versionforprinttrue
+\versionforprintfalse
+
+
+%%% include the AMS math package
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+%\usepackage{a4wide}
+
+%%% explicitly load spanish too, so we can use dutch hyphenation
+%%% with \selectlanguage{spanish}
+\usepackage[spanish,english]{babel}
+\selectlanguage{english}
+
+%%% fix some font stuff
+% more info: http://dsanta.users.ch/resources/type1.html
+\usepackage{ae,aecompl}
+
+
+%\usepackage[style=long,nonumberlist]{glossaries}
+%\makeglossaries
+
+% packages for displaying figures
+\usepackage{graphicx}
+\usepackage{epsfig}
+%\usepackage{subfigure}
+\usepackage[bf]{caption}    % Figure x.x and Table x.x in bold
+
+%%% url package for typesetting URLS
+\usepackage{url}
+
+% allow single pages in landscape mode
+\usepackage{lscape}
+\usepackage{pdflscape}
+
+%%% the algorithmic package for pseudocode algorithms
+\usepackage[chapter]{algorithm}
+\usepackage{algorithmic}
+%\renewcommand{\algorithmicendfor}{}
+%\renewcommand{\algorithmicdo}{}
+
+\usepackage{amsthm} % For \newtheorem*
+
+%%% widows are bad! let's punish them!
+%%% (prevent isolated lines from a paragraph at the top or bottom of a page)
+\widowpenalty=10000 \clubpenalty=10000
+
+%%% bottom may be ragged (do not spread paragraphs uniformly over the page)
+\raggedbottom
+
+%%% going out of margins is rather bad
+\sloppy
+
+%%% enable inline Bibtex entries (for publication list in introduction chapter)
+\usepackage{bibentry}
+%\nobibliography*
+\nobibliography*
+\bibliographystyle{inc/apasteven}
+%\bibliographystyle{apalike}
+
+
+% generate an index
+\usepackage{makeidx}
+\makeindex
+
+%\addtolength{\oddsidemargin}{27.6mm}
+
+\usepackage{inc/phdthesis_steven}
+
+% define some nice colors
+\usepackage{color}
+%\definecolor{refcolor}{rgb}{0,0,.5} %
+\definecolor{refcolor}{rgb}{0,0,0} %
+
+%%% PDF hyperref functionality
+%%% should come as late as possible in preamble according to manual
+\usepackage[%
+    pdftitle={Ph.D. Dissertation Template},
+    pdfauthor={Steven Van Vaerenbergh},
+    pdfcreator={LaTeX/LyX},
+    pdfsubject={PhD thesis dissertation template for Latex, July 2009 [steven@gtas.dicom.unican.es]},
+%    pdfpagelayout=TwoColumnRight,
+    colorlinks=true,
+    linkcolor=refcolor,anchorcolor=refcolor,citecolor=refcolor,
+    filecolor=refcolor,menucolor=refcolor,urlcolor=refcolor,
+]{hyperref}
+
+
+%%%% Use crop package to add bleeding marging of 2.5mm
+%\ifversionforprint
+%    % Use the crop package to layout the (logical) page on A4 paper with crop marks
+%    % \usepackage[a4, center, cam]{crop}
+%    \usepackage[width=16.5cm, height=24.5cm, center, cam, noinfo]{crop}
+%\fi
+
+
+%%% fix for conflict between hyperref and algorithmic/algorithm package
+%%% see http://www.mail-archive.com/lyx-users@lists.lyx.org/msg10550.html
+\newcommand{\theHalgorithm}{\arabic{algorithm}}

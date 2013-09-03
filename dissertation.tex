@@ -1,0 +1,46 @@
+% LaTeX Thesis Dissertation Template by Steven Van Vaerenbergh, https://github.com/steven2358/svv-dissertation-template
+
+% Root document
+
+\documentclass[a4paper, 12pt, twoside, openright]{book}
+
+\include{inc/includes}
+\include{inc/definitions}
+
+\begin{document}
+
+\frontmatter
+
+\include{frontmatter/front}
+\include{frontmatter/preface}
+\include{frontmatter/thanks}
+\include{frontmatter/summary}
+\include{frontmatter/notation}
+
+{\small\tableofcontents} \addcontentsline{toc}{chapter}{Contents}
+
+\mainmatter
+
+\part{Sed mauris est, convallis nec ornare}
+\include{content/ch_1}
+\include{content/ch_2}
+
+\part{Vivamus sed velit nec quam dignissim}
+\include{content/ch_3}
+
+\part{Maecenas vestibulum magnum}
+\include{content/ch_4}
+
+\include{content/appendices}
+
+\backmatter
+
+\listoffigures \addcontentsline{toc}{chapter}{List of Figures} % Figure
+\listofalgorithms \addcontentsline{toc}{chapter}{List of Algorithms} % Algorithms
+%\cleardoublepage \phantomsection \addcontentsline{toc}{chapter}{\indexname} \printindex % Index
+\cleardoublepage \phantomsection \addcontentsline{toc}{chapter}{Bibliography} \bibliography{backmatter/biblio} % Bibliography
+
+%% insert blank double page
+%\clearpage\thispagestyle{empty}\mbox{}\clearpage %
+%\clearpage\thispagestyle{empty}\mbox{}\clearpage
+\end{document}
